@@ -1,19 +1,3 @@
-/*
-const cellIngresos = document.querySelector("#cellIngresos");
-const cellGastos = document.querySelector("#cellGastos");
-const inputIngresos = document.querySelector("#inputIngresos");
-const inputGastos = document.querySelector("#inputGastos");
-
-//1. Cada vez que se realice un input guardaremos su valor en un objeto del local storage
-
-inputIngresos.addEventListener("input", event => {
-    const value = event.target.value;
-})
-
-<Button id= 'Button1'>Pulsar para mostrar</Button>
-*/
-
-///1
 const balance = document.getElementById("balance");
 const amount_pos = document.getElementById("amount-pos");
 const amount_neg = document.getElementById("amount-neg");
@@ -21,46 +5,40 @@ const list = document.getElementById("list");
 const form = document.getElementById("form");
 const text = document.getElementById("text");
 const amount = document.getElementById("amount");
-  
-  
+
 const localStorageTransactions = JSON.parse(localStorage.getItem('transactions'));
   
 let transactions = localStorage.getItem('transactions') !== null ? localStorageTransactions : [];
   
-//Add Transaction
 function addTransaction(e){
   e.preventDefault();
   if(text.value.trim() === '' || amount.value.trim() === ''){
     alert('Please add the transaction details and amount.')
   }else{
     const transaction = {
-      id:generateID(),
+      id:createID(),
       text:text.value,
       amount:+amount.value
     }
   
     transactions.push(transaction);
-
     addTransactionDOM(transaction);
-    updateValues();
+    getTotalValues();
     updateLocalStorage();
     text.value='';
     amount.value='';
     }
 }
   
-  
-//Generate Random ID
-function generateID(){
+
+function createID(){
   return Math.floor(Math.random()*1000000000);
 }
     
-//Add Trasactions to DOM list
 function addTransactionDOM(transaction) {
     const sign = transaction.amount < 0 ? "-" : "+";
     const item = document.createElement("li");
   
-    //Add Class Based on Value
     item.classList.add(transaction.amount < 0 ? "negative" : "positive");
   
     item.innerHTML = `${transaction.text}<span>${sign}${Math.abs(transaction.amount)}</span>
@@ -68,8 +46,7 @@ function addTransactionDOM(transaction) {
     list.appendChild(item);
 }
   
-  //Update the balance income and expence
-  function updateValues() {
+  function getTotalValues() {
     const amounts = transactions.map(
       (transaction) => transaction.amount
     );
@@ -89,23 +66,20 @@ function addTransactionDOM(transaction) {
       amount_neg.innerText = `${expense} EUR`;
   }
     
-  //Delete Transaction by ID
   function deleteTransaction(id){
     transactions = transactions.filter(transaction => transaction.id !== id);
     updateLocalStorage();
     Init();
   }
   
-  //update Local Storage Transaction
   function updateLocalStorage(){
     localStorage.setItem('transactions',JSON.stringify(transactions));
   }
   
-
   function Init() {
     list.innerHTML = "";
     transactions.forEach(addTransactionDOM);
-    updateValues();
+    getTotalValues();
   }
   
   Init();
