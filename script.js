@@ -46,7 +46,7 @@ const balance = document.getElementById(
   function addTransaction(e){
     e.preventDefault();
     if(text.value.trim() === '' || amount.value.trim() === ''){
-      alert('please add text and amount')
+      alert('Please add the transaction details and amount.')
     }else{
       const transaction = {
         id:generateID(),
@@ -81,7 +81,7 @@ const balance = document.getElementById(
   
     //Add Class Based on Value
     item.classList.add(
-      transaction.amount < 0 ? "positive" : "negative"
+      transaction.amount < 0 ? "negative" : "positive"
     );
   
     item.innerHTML = `
@@ -111,13 +111,11 @@ const balance = document.getElementById(
         .filter((item) => item < 0)
         .reduce((acc, item) => (acc += item), 0) * -1).toFixed(2);
   
-      balance.innerText=`$${total}`;
-      amount_pos.innerText = `$${income}`;
-      amount_neg.innerText = `$${expense}`;
+      balance.innerText=`${total} EUR`;
+      amount_pos.innerText = `${income} EUR`; 
+      amount_neg.innerText = `${expense} EUR`;
   }
   
-  
-  //6 
   
   //Delete Transaction by ID
   function deleteTransaction(id){
@@ -131,9 +129,7 @@ const balance = document.getElementById(
     localStorage.setItem('transactions',JSON.stringify(transactions));
   }
   
-  //3
-  
-  //Init App
+    
   function Init() {
     list.innerHTML = "";
     transactions.forEach(addTransactionDOM);
