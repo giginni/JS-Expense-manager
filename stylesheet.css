@@ -38,6 +38,7 @@
   h1 {
     letter-spacing: 1px;
     margin: 0;
+    text-align: center;
   }
   
   h3 {
@@ -49,8 +50,14 @@
   h4 {
     margin: 0;
     text-transform: uppercase;
+    text-align: center;
   }
   
+  h5 {
+    margin: 0;
+    text-transform: uppercase;
+  }
+
   .inc-exp-container {
     background-color: #fff;
     box-shadow: var(--box--shadow);
@@ -74,11 +81,11 @@
     letter-spacing: 1px;
     margin: 5px 0;
   }
-  .money-plus {
+  .amount-pos {
     color: #2ecc71;
   }
   
-  .money-minus {
+  .amount-neg {
     color: #c0392b;
   }
   
@@ -142,7 +149,7 @@
   
   .delete-btn {
     cursor: pointer;
-    background-color: #e74c3c;
+    background-color: #9c88ff;
     border: 0;
     color: #fff;
     font-size: 20px;
@@ -153,7 +160,7 @@
     left: 0;
     transform: translate(-100%, -50%);
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.2s ease;
   }
   
   .list li:hover .delete-btn {

@@ -17,11 +17,11 @@ inputIngresos.addEventListener("input", event => {
 const balance = document.getElementById(
     "balance"
   );
-  const money_plus = document.getElementById(
-    "money-plus"
+  const amount_pos = document.getElementById(
+    "amount-pos"
   );
-  const money_minus = document.getElementById(
-    "money-minus"
+  const amount_neg = document.getElementById(
+    "amount-neg"
   );
   const list = document.getElementById("list");
   const form = document.getElementById("form");
@@ -41,7 +41,7 @@ const balance = document.getElementById(
   
   let transactions = localStorage.getItem('transactions') !== null ? localStorageTransactions : [];
   
-  //5
+  
   //Add Transaction
   function addTransaction(e){
     e.preventDefault();
@@ -81,14 +81,14 @@ const balance = document.getElementById(
   
     //Add Class Based on Value
     item.classList.add(
-      transaction.amount < 0 ? "minus" : "plus"
+      transaction.amount < 0 ? "positive" : "negative"
     );
   
     item.innerHTML = `
       ${transaction.text} <span>${sign}${Math.abs(
       transaction.amount
     )}</span>
-      <button class="delete-btn" onclick="removeTransaction(${transaction.id})">x</button>
+      <button class="delete-btn" onclick="deleteTransaction(${transaction.id})">x</button>
       `;
     list.appendChild(item);
   }
@@ -107,22 +107,20 @@ const balance = document.getElementById(
       .filter((item) => item > 0)
       .reduce((acc, item) => (acc += item), 0)
       .toFixed(2);
-    const expense =
-      (amounts
+    const expense = (amounts
         .filter((item) => item < 0)
-        .reduce((acc, item) => (acc += item), 0) *
-      -1).toFixed(2);
+        .reduce((acc, item) => (acc += item), 0) * -1).toFixed(2);
   
       balance.innerText=`$${total}`;
-      money_plus.innerText = `$${income}`;
-      money_minus.innerText = `$${expense}`;
+      amount_pos.innerText = `$${income}`;
+      amount_neg.innerText = `$${expense}`;
   }
   
   
   //6 
   
-  //Remove Transaction by ID
-  function removeTransaction(id){
+  //Delete Transaction by ID
+  function deleteTransaction(id){
     transactions = transactions.filter(transaction => transaction.id !== id);
     updateLocalStorage();
     Init();
